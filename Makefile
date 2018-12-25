@@ -3,11 +3,11 @@
 
 .PHONY: busybox linux initramfs build
 
-all: linux busybox initramfs
+all: linux initramfs
 
-initramfs: initramfs-busybox-x86.cpio.gz build
+initramfs: initramfs-busybox-x86.cpio.gz
 
-initramfs-busybox-x86.cpio.gz: busybox
+initramfs-busybox-x86.cpio.gz: build
 	cd build ; find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../initramfs-busybox-x86.cpio.gz
 
 build: busybox
