@@ -1,24 +1,24 @@
 
 # http://mgalgs.github.io/2015/05/16/how-to-build-a-custom-linux-kernel-for-qemu-2015-edition.html
 
-all: build/bzImage build/bin/busybox build/init initramfs
+.PHONY: busybox linux initramfs build
 
-initramfs: initramfs-busybox-x86.cpio.gz
+all: linux busybox initramfs
 
-initramfs-busybox-x86.cpio.gz: build/busybox
+initramfs: initramfs-busybox-x86.cpio.gz build
+
+initramfs-busybox-x86.cpio.gz: busybox
 	cd build ; find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../initramfs-busybox-x86.cpio.gz
 
-build:
+build: busybox
 	mkdir -pv build/{bin,sbin,etc,proc,sys,usr/{bin,sbin}}
+	cd build/bin ; ../../busybox/busybox --install .
 
-build/init: build
-	cp init build/init
-
-build/busybox: build
+busybox:
 	ln -f config/busybox.conf busybox/.config
 	cd busybox ; $(MAKE) -j
-	cp busybox/busybox build/bin/.
-	cd build/bin ; ./busybox --install .
+
+linux: bzImage
 
 bzImage:
 	ln -f config/linux.conf linux/.config
