@@ -1,12 +1,16 @@
 
-all: bzImage busybox
+all: build/bzImage build/busybox
 
-bzImage:
+build:
+	mkdir build
+
+build/bzImage: build
 	ln -f config/linux.conf linux/.config
 	cd linux ; $(MAKE) -j bzImage
-	cp linux/arch/x86/boot/bzImage .
 
-busybox:
+	cp linux/arch/x86/boot/bzImage build/.
+
+build/busybox: build
 	ln -f config/busybox.conf busybox/.config
 	cd busybox ; $(MAKE) -j
-	cp busybox/busybox .
+	cp busybox/busybox build/.
