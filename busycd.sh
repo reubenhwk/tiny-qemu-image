@@ -91,10 +91,10 @@ mkdir busycd
 	# Output a grub config
 	cat <<-EOF > boot/grub/grub.cfg
 		set default="0"
-		set timeout=20
+		set timeout=0
 
 		menuentry "Linux" {
-		linux /boot/bzImage vga=791 textonly
+		linux /boot/bzImage vga=791 textonly console=ttyS0
 		initrd /boot/initramfs.img
 		}
 
