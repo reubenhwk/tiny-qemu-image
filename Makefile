@@ -1,11 +1,16 @@
 
 # http://mgalgs.github.io/2015/05/16/how-to-build-a-custom-linux-kernel-for-qemu-2015-edition.html
 
-.PHONY: busybox linux initramfs build clean
+.PHONY: busybox linux initramfs build clean grub
 
 INITRAMFS=initramfs-busybox-x86.cpio.gz
 
-all: linux initramfs
+all: linux initramfs grub
+
+grub:
+	cd grub ; ./autogen.sh
+	cd grub ; ./configure
+	cd grub ; $(MAKE)
 
 initramfs: $(INITRAMFS)
 
