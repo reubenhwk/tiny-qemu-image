@@ -18,13 +18,13 @@ build: busybox
 
 busybox:
 	ln -f config/busybox.conf busybox/.config
-	cd busybox ; $(MAKE) -j
+	cd busybox ; $(MAKE)
 
 linux: bzImage
 
 bzImage:
 	ln -f config/linux.conf linux/.config
-	cd linux ; $(MAKE) -j bzImage
+	cd linux ; $(MAKE) bzImage
 	cp linux/arch/x86/boot/bzImage .
 
 clean:
