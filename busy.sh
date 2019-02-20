@@ -28,8 +28,8 @@ mkdir busycd
 	mkdir boot/grub
 
 	# Copy over the kernel
-	cp ../initramfs-busybox-x86.cpio.gz   boot/initramfs.img
-	cp ../bzImage                         boot/bzImage
+	cp ../initramfs-busybox-x86.cpio.gz   boot/.
+	cp ../bzImage                         boot/.
 
 	# Build a root filesystem
 	mkdir rootfs
@@ -94,8 +94,8 @@ mkdir busycd
 		set timeout=0
 
 		menuentry "Linux" {
-		linux /boot/bzImage vga=791 textonly console=ttyS0
-		initrd /boot/initramfs.img
+		linux /boot/bzImage textonly console=ttyS0
+		initrd /boot/initramfs-busybox-x86.cpio.gz
 		}
 
 		menuentry "Boot from the first hard disk" {
@@ -105,6 +105,5 @@ mkdir busycd
 		EOF
 )
 
-grub-mkrescue -o busy-cd.iso busycd
-#rm -rf busycd
+grub-mkrescue -o busy.iso busycd
 

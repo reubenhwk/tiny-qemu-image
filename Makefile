@@ -5,9 +5,10 @@
 
 INITRAMFS=initramfs-busybox-x86.cpio.gz
 
-all: linux initramfs grub
+busy.iso: linux initramfs grub
+	./busy.sh
 
-grub:
+grub/grub-mkrescue:
 	cd grub ; ./autogen.sh
 	cd grub ; ./configure
 	cd grub ; $(MAKE)
