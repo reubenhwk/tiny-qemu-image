@@ -9,7 +9,7 @@ all: linux initramfs
 
 initramfs: $(INITRAMFS)
 
-$(INITRAMFS): 
+$(INITRAMFS): busybox
 	mkdir -pv initramfs/bin
 	mkdir -pv initramfs/dev
 	mkdir -pv initramfs/etc
