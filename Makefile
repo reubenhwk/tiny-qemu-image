@@ -1,7 +1,7 @@
 
 # http://mgalgs.github.io/2015/05/16/how-to-build-a-custom-linux-kernel-for-qemu-2015-edition.html
 
-.PHONY: busybox linux initramfs build clean
+.PHONY: busybox linux initramfs clean
 
 INITRAMFS=initramfs-busybox-x86.cpio.gz
 
@@ -9,19 +9,15 @@ all: linux initramfs
 
 initramfs: $(INITRAMFS)
 
-$(INITRAMFS): build
-	cd build ; find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../$(INITRAMFS)
-
-build: busybox
-	mkdir -pv build/bin
-	mkdir -pv build/sbin
-	mkdir -pv build/etc
-	mkdir -pv build/proc
-	mkdir -pv build/sys
-	mkdir -pv build/usr
-	mkdir -pv build/usr/bin
-	mkdir -pv build/usr/sbin
-	cd build/bin ; ../../busybox/busybox --install .
+$(INITRAMFS): 
+	mkdir -pv initramfs/bin
+	mkdir -pv initramfs/dev
+	mkdir -pv initramfs/etc
+	mkdir -pv initramfs/proc
+	mkdir -pv initramfs/sbin
+	mkdir -pv initramfs/sys
+	cd initramfs/bin ; ../../busybox/busybox --install .
+	cd initramfs ; find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../$(INITRAMFS)
 
 busybox:
 	ln -f config/busybox.conf busybox/.config

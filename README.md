@@ -14,4 +14,8 @@ After running 'make', you can run the results with this command...
         -nographic \
         -append "console=ttyS0"
 
+If/when you build an ISO, boot it like so...
+
+    qemu-system-x86_64 -boot d -cdrom image.iso -nographic -m 128
+
 Enjoy! :D
