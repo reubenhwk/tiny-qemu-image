@@ -13,7 +13,14 @@ $(INITRAMFS): build
 	cd build ; find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../$(INITRAMFS)
 
 build: busybox
-	mkdir -pv build/{bin,sbin,etc,proc,sys,usr/{bin,sbin}}
+	mkdir -pv build/bin
+	mkdir -pv build/sbin
+	mkdir -pv build/etc
+	mkdir -pv build/proc
+	mkdir -pv build/sys
+	mkdir -pv build/usr
+	mkdir -pv build/usr/bin
+	mkdir -pv build/usr/sbin
 	cd build/bin ; ../../busybox/busybox --install .
 
 busybox:
