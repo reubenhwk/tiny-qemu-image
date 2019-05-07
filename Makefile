@@ -12,6 +12,9 @@ grub:
 	cd grub ; ./configure
 	cd grub ; $(MAKE)
 
+image.iso: linux initramfs
+	./build-iso.sh
+
 initramfs: $(INITRAMFS)
 
 $(INITRAMFS): busybox
